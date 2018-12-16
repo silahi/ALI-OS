@@ -10,6 +10,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
 public class Racine extends DefaultMutableTreeNode {
     public Racine(String nom) {
         super(nom);
-    }
+    }    
     
 }
