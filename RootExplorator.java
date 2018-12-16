@@ -1,14 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+ 
 package explorer;
 
+import javax.swing.JTabbedPane;
+
 /**
- *
+ *Date de création : 16/11/18
  * @author alhoussene
  */
-class RootExplorator {
+public class RootExplorator extends JTabbedPane {
     
 }
