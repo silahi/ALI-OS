@@ -51,6 +51,9 @@ public class Explorator extends JFrame {
     //racine de l'arbre de l'ordinateur
     protected Racine nodeOrdi_ = null;
     
+    // création d'un panneau de division
+    protected DividerPanel dividerPanel_ = null;
+    
     public Explorator(){
         setSize(1200 , 600);
         setLocationRelativeTo(null);
@@ -62,10 +65,13 @@ public class Explorator extends JFrame {
         upPanel_   = new JPanel();
         rootExplorator_ = new RootExplorator();
         
+        //création du panneau de division
+        dividerPanel_ = new DividerPanel(leftPanel_ , rootExplorator_);
+        rootExplorator_.addTab("Dossier", new JPanel());
         //ajout des panneaux dans la fenetre principale de l'explorateur de fichier
-        add(new JScrollPane(leftPanel_) ,"West");
+        
         add(new JScrollPane(upPanel_),"North");
-        add(new JScrollPane(rootExplorator_) , "Center");
+        add(new JScrollPane(dividerPanel_) , "Center");
         
         //création des noeuds 
         nodeAccRap_ = new Racine("Acces Rapide");
