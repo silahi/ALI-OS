@@ -1,7 +1,9 @@
  
 package explorer;
 
+import fileExplorer.ExplorerConfigPanel;
 import java.awt.GridLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -57,7 +59,7 @@ public class Explorator extends JFrame {
     public Explorator(){
         setSize(1200 , 600);
         setLocationRelativeTo(null);
-        
+        setIconImage(new ImageIcon("Pictures/Computer.PNG").getImage());
         
         leftPanel_ = new JPanel();
         leftPanLay_ = new GridLayout(2,1);
@@ -66,12 +68,11 @@ public class Explorator extends JFrame {
         rootExplorator_ = new RootExplorator();
         
         //création du panneau de division
-        dividerPanel_ = new DividerPanel(leftPanel_ , rootExplorator_);
-        rootExplorator_.addTab("Dossier", new JPanel());
+        dividerPanel_ = new DividerPanel(new  Defileur(leftPanel_ ), rootExplorator_); 
         //ajout des panneaux dans la fenetre principale de l'explorateur de fichier
         
-        add(new JScrollPane(upPanel_),"North");
-        add(new JScrollPane(dividerPanel_) , "Center");
+        add(new ExplorerConfigPanel(),"North");
+        add(dividerPanel_ , "Center");
         
         //création des noeuds 
         nodeAccRap_ = new Racine("Acces Rapide");

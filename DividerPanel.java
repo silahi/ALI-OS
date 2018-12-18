@@ -1,9 +1,7 @@
  
 package explorer;
 
-import javax.swing.JComponent;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+import javax.swing.JComponent; 
 import javax.swing.JSplitPane;
 
 /**
@@ -11,8 +9,9 @@ import javax.swing.JSplitPane;
  * @author alhoussene
  */
 public class DividerPanel extends JSplitPane {
-    public DividerPanel(JPanel leftPanel , JComponent component){
-        super(JSplitPane.HORIZONTAL_SPLIT , new JScrollPane(leftPanel) , new JScrollPane(component));
+    public DividerPanel(JComponent leftPanel , JComponent component){
+        super(JSplitPane.HORIZONTAL_SPLIT ,leftPanel,component);
         setContinuousLayout(true);
+        setDividerSize(2);
     }
 }
