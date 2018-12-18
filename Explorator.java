@@ -66,12 +66,13 @@ public class Explorator extends JFrame {
         setSize(1200 , 600);
         setLocationRelativeTo(null);
         setIconImage(new ImageIcon("Pictures/Computer.PNG").getImage());
+        setExtendedState(MAXIMIZED_BOTH);
         interPanel_ = new JPanel();
         interPanel_.setLayout(new BorderLayout());
         
         
         leftPanel_ = new JPanel();
-        leftPanLay_ = new GridLayout(2,1);
+        leftPanLay_ = new GridLayout(2,1 );
         leftPanel_.setLayout(leftPanLay_);
         upPanel_   = new JPanel();
         rootPanel_ = new JPanel();

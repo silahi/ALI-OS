@@ -1,6 +1,8 @@
  
 package explorer;
 
+import java.awt.Color;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel; 
@@ -24,8 +26,9 @@ public class ViewPanel extends JPanel {
    protected PathPanel pathPanel_ = null;
    
     public ViewPanel() {
-        pathField_  = new JTextField(50);
+        pathField_  = new JTextField(70);
         seachField_ = new JTextField(20);
+       
         icon_       = new JLabel(new ImageIcon("Pictures/icoFol.PNG"));
         
         //ajout des composants de p1
@@ -40,12 +43,19 @@ public class ViewPanel extends JPanel {
         //ajout des composants de p3
         JPanel p3 = new JPanel();
         p3.add(seachField_);
-        p3.add(seachButton_);
+        p3.add(seachButton_); 
         
         //ajout des panneaux p1 , pathPanel et p3
         add(p1);
         add(pathPanel_);
         add(p3); 
+        
+        JButton[] buttons = {left_ , right_ , seachButton_};
+        for(JButton b : buttons){
+            b.setBackground(new Color(237 , 237 , 237));
+            b.setBorderPainted(false);
+            b.setOpaque(false);
+        }
         
     }
     

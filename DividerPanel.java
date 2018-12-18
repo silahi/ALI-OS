@@ -1,6 +1,7 @@
  
 package explorer;
 
+import java.awt.FlowLayout;
 import javax.swing.JComponent; 
 import javax.swing.JSplitPane;
 
@@ -12,6 +13,7 @@ public class DividerPanel extends JSplitPane {
     public DividerPanel(JComponent leftPanel , JComponent component){
         super(JSplitPane.HORIZONTAL_SPLIT ,leftPanel,component);
         setContinuousLayout(true);
-        setDividerSize(2);
+        setDividerSize(2); 
+        setOpaque(false); 
     }
 }
