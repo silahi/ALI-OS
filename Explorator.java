@@ -2,6 +2,7 @@
 package explorer;
 
 import fileExplorer.ExplorerConfigPanel;
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -34,7 +35,8 @@ public class Explorator extends JFrame {
      * ceci est le panneau principale de l'explorateur de fichier
      * permettant d'ouvrir un dissier et ansi de suite
      */    
-    protected RootExplorator rootExplorator_ = null;   
+    
+    protected JPanel rootPanel_ = null;
     /*
       Création d'un instance de l'arbre de L'ordinateur qui sera
       ajouté dans le panneau gauche
@@ -56,23 +58,33 @@ public class Explorator extends JFrame {
     // création d'un panneau de division
     protected DividerPanel dividerPanel_ = null;
     
+    //Panneau intermediaire 
+    private JPanel interPanel_ = null;
+    
+    protected ViewPanel viewPanel_ = null;
     public Explorator(){
         setSize(1200 , 600);
         setLocationRelativeTo(null);
         setIconImage(new ImageIcon("Pictures/Computer.PNG").getImage());
+        interPanel_ = new JPanel();
+        interPanel_.setLayout(new BorderLayout());
+        
         
         leftPanel_ = new JPanel();
         leftPanLay_ = new GridLayout(2,1);
         leftPanel_.setLayout(leftPanLay_);
         upPanel_   = new JPanel();
-        rootExplorator_ = new RootExplorator();
+        rootPanel_ = new JPanel();
         
         //création du panneau de division
-        dividerPanel_ = new DividerPanel(new  Defileur(leftPanel_ ), rootExplorator_); 
+        dividerPanel_ = new DividerPanel(new  Defileur(leftPanel_ ), rootPanel_); 
         //ajout des panneaux dans la fenetre principale de l'explorateur de fichier
         
         add(new ExplorerConfigPanel(),"North");
-        add(dividerPanel_ , "Center");
+        add(interPanel_ , "Center");
+        interPanel_.add(dividerPanel_ , "Center");
+        viewPanel_ = new ViewPanel();
+        interPanel_.add(viewPanel_,"North");
         
         //création des noeuds 
         nodeAccRap_ = new Racine("Acces Rapide");
