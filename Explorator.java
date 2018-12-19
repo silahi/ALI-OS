@@ -6,8 +6,7 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+import javax.swing.JPanel; 
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**Fichier : Explorator.java
@@ -72,7 +71,9 @@ public class Explorator extends JFrame {
         
         
         leftPanel_ = new JPanel();
-        leftPanLay_ = new GridLayout(2,1 );
+        leftPanLay_ = new GridLayout(4,1 , 5 , 30 );
+        leftPanLay_.setHgap(20);
+        leftPanLay_.setVgap(50);
         leftPanel_.setLayout(leftPanLay_);
         upPanel_   = new JPanel();
         rootPanel_ = new JPanel();
