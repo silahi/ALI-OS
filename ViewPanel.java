@@ -25,8 +25,9 @@ public class ViewPanel extends JPanel {
    protected PathPanel pathPanel_ = null;
    
     public ViewPanel() {
-        pathField_  = new JTextField(70);
+        pathField_  = new JTextField(60);
         seachField_ = new JTextField(20);
+       
        
         icon_       = new JLabel(new ImageIcon("Pictures/icoFol.PNG"));
         

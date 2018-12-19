@@ -19,7 +19,7 @@ public class AccesRapide extends JTree {
           color = new Color(237,237,237);
           setBackground(new Color(237,237,237));
           setCellRenderer(new Rendu());
-          setFont(new Font("Arial",Font.PLAIN,11));
+          setFont(new Font("Arial",Font.PLAIN,13));
     }
      private class Rendu extends DefaultTreeCellRenderer{
         public Rendu(){

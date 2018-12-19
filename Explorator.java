@@ -62,16 +62,16 @@ public class Explorator extends JFrame {
     
     protected ViewPanel viewPanel_ = null;
     public Explorator(){
-        setSize(1200 , 600);
-        setLocationRelativeTo(null);
+        setSize(1200 , 700);
+        setLocation(20,15);
         setIconImage(new ImageIcon("Pictures/Computer.PNG").getImage());
-        setExtendedState(MAXIMIZED_BOTH);
+        //setExtendedState(MAXIMIZED_BOTH);
         interPanel_ = new JPanel();
         interPanel_.setLayout(new BorderLayout());
         
         
         leftPanel_ = new JPanel();
-        leftPanLay_ = new GridLayout(4,1 , 5 , 30 );
+        leftPanLay_ = new GridLayout(2,1 , 5 , 30 );
         leftPanLay_.setHgap(20);
         leftPanLay_.setVgap(50);
         leftPanel_.setLayout(leftPanLay_);
@@ -110,7 +110,18 @@ public class Explorator extends JFrame {
         nodeAccRap_.add(new DefaultMutableTreeNode("Films"));
         nodeAccRap_.add(new DefaultMutableTreeNode("Downloads"));
         nodeAccRap_.add(new DefaultMutableTreeNode("Images"));
-                
+         
+        DefaultMutableTreeNode diskC = new DefaultMutableTreeNode("Disque(C:)");
+        nodeOrdi_.add(diskC);
+        
+        DefaultMutableTreeNode cour = new DefaultMutableTreeNode("Cours");
+        diskC.add(cour);
+        
+        DefaultMutableTreeNode java = new DefaultMutableTreeNode("Java Courses");
+        cour.add(java);
+        cour.add(new DefaultMutableTreeNode("Linux"));
+        cour.add(new DefaultMutableTreeNode("Programmes"));        
+        java.add(new DefaultMutableTreeNode("Swing courses"));
         
         setVisible(true);
     }
