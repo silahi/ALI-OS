@@ -3,11 +3,13 @@ package explorer;
 
 import fileExplorer.ExplorerConfigPanel;
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
+import java.awt.GridLayout; 
+import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JPanel; 
-import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.JPanel;  
+import os.Folder;
+import os.RootPopup;
 
 /**Fichier : Explorator.java
  *Date de création : 16/11/18
@@ -23,8 +25,8 @@ public class Explorator extends JFrame {
         * L'arbre de l'ordinateur
         * @see Ordinateur
     */
-    protected JPanel leftPanel_ = null;
-    private GridLayout  leftPanLay_     =null;
+    protected JPanel treeContainerPanel_ = null;
+    protected GroupLayout group_ = null;
     /** Ce panneau (panel haut de l'explorteur de fichier) va contienir :
      *  les boutons( Supprimer , copier , coller , deplacer ... )
      */
@@ -58,71 +60,57 @@ public class Explorator extends JFrame {
     protected DividerPanel dividerPanel_ = null;
     
     //Panneau intermediaire 
-    private JPanel interPanel_ = null;
+    private JPanel interPanel_ = null;    
+    protected ViewPanel viewPanel_ = null; 
     
-    protected ViewPanel viewPanel_ = null;
+    //panel du nord
+    protected ExplorerConfigPanel expConfPan_ = null;
     public Explorator(){
         setSize(1200 , 700);
         setLocation(20,15);
         setIconImage(new ImageIcon("Pictures/Computer.PNG").getImage());
-        //setExtendedState(MAXIMIZED_BOTH);
-        interPanel_ = new JPanel();
-        interPanel_.setLayout(new BorderLayout());
+        setExtendedState(MAXIMIZED_BOTH); 
         
-        
-        leftPanel_ = new JPanel();
-        leftPanLay_ = new GridLayout(2,1 , 5 , 30 );
-        leftPanLay_.setHgap(20);
-        leftPanLay_.setVgap(50);
-        leftPanel_.setLayout(leftPanLay_);
-        upPanel_   = new JPanel();
-        rootPanel_ = new JPanel();
-        
-        //création du panneau de division
-        dividerPanel_ = new DividerPanel(new  Defileur(leftPanel_ ), rootPanel_); 
-        //ajout des panneaux dans la fenetre principale de l'explorateur de fichier
-        
-        add(new ExplorerConfigPanel(),"North");
-        add(interPanel_ , "Center");
-        interPanel_.add(dividerPanel_ , "Center");
-        viewPanel_ = new ViewPanel();
-        interPanel_.add(viewPanel_,"North");
-        
-        //création des noeuds 
-        nodeAccRap_ = new Racine("Acces Rapide");
-        nodeOrdi_  = new Racine("Ordinateur");
-        
-        //création des arbres
-        accesRapide_ = new AccesRapide(nodeAccRap_);        
-        ordinateur_  = new Ordinateur(nodeOrdi_);
-        
-        //ajout des arbres dans le panneau gauche
-        leftPanel_.add(accesRapide_);
-        leftPanel_.add(ordinateur_); 
-        
-        //exemples
-        nodeOrdi_.add(new DefaultMutableTreeNode("Downloads"));
-        nodeOrdi_.add(new DefaultMutableTreeNode("Movies"));
-        nodeOrdi_.add(new DefaultMutableTreeNode("Pictures"));
-        nodeOrdi_.add(new DefaultMutableTreeNode("Documents"));
-        
-        nodeAccRap_.add(new DefaultMutableTreeNode("Documents"));
-        nodeAccRap_.add(new DefaultMutableTreeNode("Films"));
-        nodeAccRap_.add(new DefaultMutableTreeNode("Downloads"));
-        nodeAccRap_.add(new DefaultMutableTreeNode("Images"));
+        //creation et ajout du pannrau intermediaire
+         interPanel_ = new JPanel();
+         interPanel_.setLayout(new BorderLayout());
+         add(interPanel_ , "Center");  
          
-        DefaultMutableTreeNode diskC = new DefaultMutableTreeNode("Disque(C:)");
-        nodeOrdi_.add(diskC);
-        
-        DefaultMutableTreeNode cour = new DefaultMutableTreeNode("Cours");
-        diskC.add(cour);
-        
-        DefaultMutableTreeNode java = new DefaultMutableTreeNode("Java Courses");
-        cour.add(java);
-        cour.add(new DefaultMutableTreeNode("Linux"));
-        cour.add(new DefaultMutableTreeNode("Programmes"));        
-        java.add(new DefaultMutableTreeNode("Swing courses"));
-        
-        setVisible(true);
-    }
+         expConfPan_ = new ExplorerConfigPanel();
+         add(expConfPan_,"North");
+         
+         treeContainerPanel_ = new JPanel();
+         group_ = new GroupLayout(treeContainerPanel_);
+         group_.setAutoCreateContainerGaps(true);
+         group_.setAutoCreateGaps(true);
+         treeContainerPanel_.setLayout(group_);
+         // création des propriétés du groupe
+         
+         GroupLayout.SequentialGroup verGroup  = group_.createSequentialGroup();
+         GroupLayout.ParallelGroup horGroup    = group_.createParallelGroup();
+         
+         group_.setVerticalGroup(verGroup);
+         group_.setHorizontalGroup(horGroup);
+         
+         //Instantiation des arbres
+         nodeAccRap_ = new Racine("Acces Rapide");
+         accesRapide_ = new AccesRapide(nodeAccRap_);
+         
+         nodeOrdi_ = new Racine("Ordinateur");
+         ordinateur_ = new Ordinateur(nodeOrdi_); 
+         
+         verGroup.addComponent(accesRapide_).addComponent(ordinateur_);
+         horGroup.addComponent(accesRapide_).addComponent(ordinateur_);
+                 
+         rootPanel_ = new JPanel();
+         dividerPanel_ = new DividerPanel(treeContainerPanel_, rootPanel_);
+         RootPopup popup = new RootPopup();
+         rootPanel_.setComponentPopupMenu(popup); 
+         popup.folder.addActionListener(ActionEvent -> rootPanel_.add(new Folder("Nouveau dossier")));          
+         
+         
+         interPanel_.add(dividerPanel_,"Center");
+         viewPanel_ = new ViewPanel();
+         interPanel_.add(viewPanel_,"North");
+    }       
 }
