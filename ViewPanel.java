@@ -2,6 +2,7 @@
 package explorer;
 
 import java.awt.Color; 
+import java.awt.Font;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel; 
@@ -27,7 +28,11 @@ public class ViewPanel extends JPanel {
     public ViewPanel() {
         pathField_  = new JTextField(60);
         seachField_ = new JTextField(20);
-       
+        JTextField[] fields = {pathField_,seachField_};
+        for(JTextField tf : fields){
+            tf.setFont(new Font("Arial",Font.BOLD,11));
+            
+        }
        
         icon_       = new JLabel(new ImageIcon("Pictures/icoFol.PNG"));
         

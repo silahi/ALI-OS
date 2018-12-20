@@ -9,8 +9,6 @@ import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;  
-import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
  
 
@@ -20,7 +18,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * Mescriptions : classe principale contenant l'ensemble des fichiers du systeme
  * @author alhoussene
  */
-public class Explorator extends JFrame implements TreeSelectionListener {
+public class Explorator extends JFrame  {
     
     /** Ce panneau (panel gauche de l'explorateur de fichier) va contienir :
         * L'arbre d'acces rapide
@@ -104,8 +102,22 @@ public class Explorator extends JFrame implements TreeSelectionListener {
          nodeAccRap_ = new Racine("Acces Rapide");
          accesRapide_ = new AccesRapide(nodeAccRap_);
          
+         accesRapide_.addTreeSelectionListener((TreeSelectionEvent)->{
+            if(accesRapide_.getSelectionPath() != null){
+            String chemin = accesRapide_.getSelectionPath().toString();
+            viewPanel_.pathField_.setText(chemin);            
+            }
+         });
+         
          nodeOrdi_ = new Racine("Ordinateur");
          ordinateur_ = new Ordinateur(nodeOrdi_); 
+         
+         ordinateur_.addTreeSelectionListener((TreeSelectionEvent)->{
+           if(ordinateur_.getSelectionPath() != null){
+            String chemin = ordinateur_.getSelectionPath().toString();
+            viewPanel_.pathField_.setText(chemin);            
+            }
+         });
          
          verGroup.addComponent(accesRapide_).addComponent(ordinateur_);
          horGroup.addComponent(accesRapide_).addComponent(ordinateur_);
@@ -139,14 +151,6 @@ public class Explorator extends JFrame implements TreeSelectionListener {
          nodeAccRap_.add(new DefaultMutableTreeNode("Images")); 
          
     }   
-
-    @Override
-    public void valueChanged(TreeSelectionEvent tse) {
-        if(ordinateur_.getSelectionPath() != null){
-            String chemin = ordinateur_.getSelectionPath().toString();
-            
-        }
-     }
  
    
 }
