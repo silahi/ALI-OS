@@ -4,6 +4,7 @@ package explorer;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.util.ArrayList;
  
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
@@ -70,12 +71,16 @@ public class Explorator extends JFrame  {
     // création d'un gestionnaire de pile
     private CardLayout pile_ = null;
     
+    //Tableu de stockage de chemin temp
+    private ArrayList<String> collector_ = null;
+     
+    
     public Explorator(){
         setSize(1200 , 700);
         setLocation(20,15);
         setIconImage(new ImageIcon("Pictures/Computer.PNG").getImage());
         setExtendedState(MAXIMIZED_BOTH);
-         
+        collector_ = new ArrayList<>(); 
         
         //creation et ajout du pannrau intermediaire
          interPanel_ = new JPanel();
@@ -104,7 +109,7 @@ public class Explorator extends JFrame  {
          
          accesRapide_.addTreeSelectionListener((TreeSelectionEvent)->{
             if(accesRapide_.getSelectionPath() != null){
-            String chemin = accesRapide_.getSelectionPath().toString();
+            String chemin = accesRapide_.getSelectionPath().toString(); 
             viewPanel_.pathField_.setText(chemin);            
             }
          });
@@ -114,7 +119,7 @@ public class Explorator extends JFrame  {
          
          ordinateur_.addTreeSelectionListener((TreeSelectionEvent)->{
            if(ordinateur_.getSelectionPath() != null){
-            String chemin = ordinateur_.getSelectionPath().toString();
+            String chemin = ordinateur_.getSelectionPath().toString(); 
             viewPanel_.pathField_.setText(chemin);            
             }
          });
@@ -139,8 +144,21 @@ public class Explorator extends JFrame  {
          nodeOrdi_.add(new DefaultMutableTreeNode("Musiques"));
          nodeOrdi_.add(new DefaultMutableTreeNode("Telechargements"));
          nodeOrdi_.add(new DefaultMutableTreeNode("Videos"));
-         nodeOrdi_.add(new DefaultMutableTreeNode("ALIOS(C:)"));
-         nodeOrdi_.add(new DefaultMutableTreeNode("ALIOS(D:)"));
+         
+         //Contenu du disque C
+         DefaultMutableTreeNode diskC = new DefaultMutableTreeNode("ALIOS(C:)");         
+         diskC.add(new DefaultMutableTreeNode("Utilisateur"));
+         diskC.add(new DefaultMutableTreeNode("Programmes Files"));
+         diskC.add(new DefaultMutableTreeNode("Programmes"));
+         nodeOrdi_.add(diskC);
+         
+         //Contenu du disque D
+         DefaultMutableTreeNode diskD = new DefaultMutableTreeNode("ALIOS(D:)");         
+         diskD.add(new DefaultMutableTreeNode("Applications"));
+         diskD.add(new DefaultMutableTreeNode("java courses"));
+         diskD.add(new DefaultMutableTreeNode("Algebre"));
+         diskD.add(new DefaultMutableTreeNode("Reseau"));
+         nodeOrdi_.add(diskD);
          
          // Acces rapide
          nodeAccRap_.add(new DefaultMutableTreeNode("Bureau"));
@@ -149,7 +167,6 @@ public class Explorator extends JFrame  {
          nodeAccRap_.add(new DefaultMutableTreeNode("Videos"));
          nodeAccRap_.add(new DefaultMutableTreeNode("Musiques"));
          nodeAccRap_.add(new DefaultMutableTreeNode("Images")); 
-         
     }   
  
    
