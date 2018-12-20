@@ -14,12 +14,13 @@ import javax.swing.tree.DefaultTreeCellRenderer;
  */
 public class Ordinateur extends JTree {
     private Color color = null;
+    
     public Ordinateur(DefaultMutableTreeNode racine){
         super(racine); 
         color = new Color(237,237,237);
         setBackground(new Color(237,237,237));
         setCellRenderer(new Rendu());
-        setFont(new Font("Arial",Font.PLAIN,13));
+        setFont(new Font("Arial",Font.BOLD,12));  
         
     }
     
@@ -27,10 +28,7 @@ public class Ordinateur extends JTree {
         public Rendu(){
             this.setBackground(color);
             this.setBackgroundSelectionColor(color);
-            this.setBackgroundNonSelectionColor(color);
-            this.setOpenIcon(new ImageIcon("Pictures/cePC.PNG"));
-            this.setClosedIcon(new ImageIcon("Pictures/cePC.PNG"));
-            this.setLeafIcon(new ImageIcon("Pictures/doc.PNG"));
+            this.setBackgroundNonSelectionColor(color); 
         }
     }
 }

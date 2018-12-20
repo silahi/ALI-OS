@@ -1,15 +1,18 @@
  
 package explorer;
 
-import fileExplorer.ExplorerConfigPanel;
+
 import java.awt.BorderLayout;
-import java.awt.GridLayout; 
+import java.awt.CardLayout;
+ 
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;  
-import os.Folder;
-import os.RootPopup;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.tree.DefaultMutableTreeNode;
+ 
 
 /**Fichier : Explorator.java
  *Date de création : 16/11/18
@@ -17,7 +20,7 @@ import os.RootPopup;
  * Mescriptions : classe principale contenant l'ensemble des fichiers du systeme
  * @author alhoussene
  */
-public class Explorator extends JFrame {
+public class Explorator extends JFrame implements TreeSelectionListener {
     
     /** Ce panneau (panel gauche de l'explorateur de fichier) va contienir :
         * L'arbre d'acces rapide
@@ -65,11 +68,16 @@ public class Explorator extends JFrame {
     
     //panel du nord
     protected ExplorerConfigPanel expConfPan_ = null;
+    
+    // création d'un gestionnaire de pile
+    private CardLayout pile_ = null;
+    
     public Explorator(){
         setSize(1200 , 700);
         setLocation(20,15);
         setIconImage(new ImageIcon("Pictures/Computer.PNG").getImage());
-        setExtendedState(MAXIMIZED_BOTH); 
+        setExtendedState(MAXIMIZED_BOTH);
+         
         
         //creation et ajout du pannrau intermediaire
          interPanel_ = new JPanel();
@@ -103,14 +111,42 @@ public class Explorator extends JFrame {
          horGroup.addComponent(accesRapide_).addComponent(ordinateur_);
                  
          rootPanel_ = new JPanel();
-         dividerPanel_ = new DividerPanel(treeContainerPanel_, rootPanel_);
-         RootPopup popup = new RootPopup();
-         rootPanel_.setComponentPopupMenu(popup); 
-         popup.folder.addActionListener(ActionEvent -> rootPanel_.add(new Folder("Nouveau dossier")));          
-         
+         pile_ = new CardLayout();
+         rootPanel_.setLayout(pile_);
+         dividerPanel_ = new DividerPanel(new Defileur(treeContainerPanel_), rootPanel_);
+          
          
          interPanel_.add(dividerPanel_,"Center");
          viewPanel_ = new ViewPanel();
          interPanel_.add(viewPanel_,"North");
-    }       
+         
+         //Ajout de quelques enfants par défaut
+         nodeOrdi_.add(new DefaultMutableTreeNode("Bureau"));
+         nodeOrdi_.add(new DefaultMutableTreeNode("Documents"));
+         nodeOrdi_.add(new DefaultMutableTreeNode("Images"));
+         nodeOrdi_.add(new DefaultMutableTreeNode("Musiques"));
+         nodeOrdi_.add(new DefaultMutableTreeNode("Telechargements"));
+         nodeOrdi_.add(new DefaultMutableTreeNode("Videos"));
+         nodeOrdi_.add(new DefaultMutableTreeNode("ALIOS(C:)"));
+         nodeOrdi_.add(new DefaultMutableTreeNode("ALIOS(D:)"));
+         
+         // Acces rapide
+         nodeAccRap_.add(new DefaultMutableTreeNode("Bureau"));
+         nodeAccRap_.add(new DefaultMutableTreeNode("Documents"));
+         nodeAccRap_.add(new DefaultMutableTreeNode("Telechargements"));
+         nodeAccRap_.add(new DefaultMutableTreeNode("Videos"));
+         nodeAccRap_.add(new DefaultMutableTreeNode("Musiques"));
+         nodeAccRap_.add(new DefaultMutableTreeNode("Images")); 
+         
+    }   
+
+    @Override
+    public void valueChanged(TreeSelectionEvent tse) {
+        if(ordinateur_.getSelectionPath() != null){
+            String chemin = ordinateur_.getSelectionPath().toString();
+            
+        }
+     }
+ 
+   
 }

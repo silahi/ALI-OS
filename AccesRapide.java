@@ -19,16 +19,13 @@ public class AccesRapide extends JTree {
           color = new Color(237,237,237);
           setBackground(new Color(237,237,237));
           setCellRenderer(new Rendu());
-          setFont(new Font("Arial",Font.PLAIN,13));
+          setFont(new Font("Arial",Font.BOLD,12));
     }
      private class Rendu extends DefaultTreeCellRenderer{
         public Rendu(){
             this.setBackground(color);
             this.setBackgroundSelectionColor(color);
-            this.setBackgroundNonSelectionColor(color);
-            this.setOpenIcon(new ImageIcon("Pictures/rapide.PNG"));
-            this.setClosedIcon(new ImageIcon("Pictures/rapide.PNG"));
-            this.setLeafIcon(new ImageIcon("Pictures/doc.PNG"));
+            this.setBackgroundNonSelectionColor(color); 
         }
     }
 }
