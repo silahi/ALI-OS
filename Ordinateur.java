@@ -2,8 +2,7 @@
 package explorer;
 
 import java.awt.Color;
-import java.awt.Font;
-import javax.swing.ImageIcon;
+import java.awt.Font; 
 import javax.swing.JTree; 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
@@ -20,7 +19,7 @@ public class Ordinateur extends JTree {
         color = new Color(237,237,237);
         setBackground(new Color(237,237,237));
         setCellRenderer(new Rendu());
-        setFont(new Font("Arial",Font.BOLD,12));  
+        setFont(new Font("Arial",Font.BOLD,12));
         
     }
     
@@ -29,6 +28,7 @@ public class Ordinateur extends JTree {
             this.setBackground(color);
             this.setBackgroundSelectionColor(color);
             this.setBackgroundNonSelectionColor(color); 
+            this.setLeafIcon(closedIcon);
         }
     }
 }

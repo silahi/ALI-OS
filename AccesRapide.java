@@ -2,8 +2,7 @@
 package explorer;
 
 import java.awt.Color;
-import java.awt.Font;
-import javax.swing.ImageIcon;
+import java.awt.Font; 
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
@@ -26,6 +25,7 @@ public class AccesRapide extends JTree {
             this.setBackground(color);
             this.setBackgroundSelectionColor(color);
             this.setBackgroundNonSelectionColor(color); 
+            this.setLeafIcon(closedIcon);            
         }
     }
 }

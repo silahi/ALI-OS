@@ -29,11 +29,11 @@ public class ExplorerConfigPanel extends JPanel {
         rootPanel = new JPanel();
         add(new JScrollPane(rootPanel));  
         
-        createFolder = new Bouton("<html>Nouveau<br>dossier</html>" ,new ImageIcon("Pictures/doc.PNG"));
-        createFile   = new Bouton("<html>Nouveau<br>fichier</html>" ,new ImageIcon("Pictures/iconFile.PNG"));
+        createFolder = new Bouton("<html>Nouveau<br>&nbsp;&nbsp;Dossier</html>" ,new ImageIcon("Pictures/icoFol.PNG"));
+        createFile   = new Bouton("<html>Nouveau<br>&nbsp;&nbsp;&nbsp;Fichier</html>" ,new ImageIcon("Pictures/iconFile.PNG"));
         copy         = new Bouton("Copier" ,new ImageIcon("Pictures/iconCopy.PNG"));
         paste        = new Bouton("Coller" , new ImageIcon("Pictures/iconPaste.PNG"));
-        delete       = new Bouton("Supprimer",new ImageIcon("Pictures/iconDelete.PNG"));
+        delete       = new Bouton("Supprimer",new ImageIcon("Pictures/iconDelete.png"));
         cut          = new Bouton("Couper" , new ImageIcon("Pictures/iconCut.PNG"));
         
         
@@ -45,7 +45,7 @@ public class ExplorerConfigPanel extends JPanel {
         
         JPanel p2 = new JPanel();
         p2.add(createFolder); p2.add(createFile);
-        rootPanel.add(p2);
+        rootPanel.add(p2); 
     }
     
      

@@ -2,7 +2,7 @@
 package explorer;
 
  
-import java.awt.Font;
+ 
 import javax.swing.JComponent; 
 import javax.swing.JSplitPane;
 
@@ -17,6 +17,6 @@ public class DividerPanel extends JSplitPane {
         setDividerSize(2); 
         setOpaque(false); 
         setDoubleBuffered(true);
-        setFont(new Font("Arial",Font.BOLD , 30));
+       // setFont(new Font("Arial",Font.BOLD , 30));
     }
 }
