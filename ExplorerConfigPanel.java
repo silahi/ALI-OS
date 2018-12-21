@@ -36,7 +36,8 @@ public class ExplorerConfigPanel extends JPanel {
         delete       = new Bouton("Supprimer",new ImageIcon("Pictures/iconDelete.png"));
         cut          = new Bouton("Couper" , new ImageIcon("Pictures/iconCut.PNG"));
         
-        
+        JButton[] boutons = {createFolder,createFile,copy,paste,delete,cut};
+        for(JButton b : boutons) b.setEnabled(false);
         // Action de supprimer 
         
         JPanel p1 = new JPanel();

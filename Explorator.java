@@ -7,6 +7,8 @@ import alios.MBTEvent;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -26,7 +28,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * Mescriptions : classe principale contenant l'ensemble des fichiers du systeme
  * @author alhoussene
  */
-public class Explorator extends JFrame  {
+public class Explorator extends JFrame implements FocusListener  {
     
     /** Ce panneau (panel gauche de l'explorateur de fichier) va contienir :
         * L'arbre d'acces rapide
@@ -84,6 +86,8 @@ public class Explorator extends JFrame  {
     
    // com.sun.java.swing.
     private final String WINDOW = "com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel";
+    
+    
     public Explorator(){
         setSize(1200 , 700);
         setLocation(20,15);
@@ -144,11 +148,13 @@ public class Explorator extends JFrame  {
          pile_ = new CardLayout();
          rootPanel_.setLayout(pile_);
          dividerPanel_ = new DividerPanel(new Defileur(treeContainerPanel_), new Defileur(rootPanel_)); 
+         
          rootPanel_.addMouseListener(new MouseAdapter(){            
            @Override
            public void mouseEntered(MouseEvent me){
-               Application.barTache.setLocation(0,762);
-           }
+               Application.barTache.setLocation(0,762); 
+           } 
+            
         });
          interPanel_.add(dividerPanel_,"Center");
          viewPanel_ = new ViewPanel();
@@ -196,10 +202,18 @@ public class Explorator extends JFrame  {
          nodeAccRap_.add(new DefaultMutableTreeNode("Musiques",true));
          nodeAccRap_.add(new DefaultMutableTreeNode("Images",true)); 
          
-         //Contenu du repertoire du system
+ 
          
-         
-         
+       
     }   
+
+    @Override
+    public void focusGained(FocusEvent fe) { 
+       
+     }
+
+    @Override
+    public void focusLost(FocusEvent fe) {  
+    }
       
 }

@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import static java.awt.FlowLayout.LEFT;
 import java.awt.Font; 
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel; 
@@ -16,7 +18,7 @@ import javax.swing.JTextField;
  *
  * @author alhoussene
  */
-public class ViewPanel extends JPanel {
+public class ViewPanel extends JPanel implements FocusListener {
    protected JButton left_         = new JButton(new ImageIcon("Pictures/left.PNG"));
    protected JButton right_        = new JButton(new ImageIcon("Pictures/right.PNG"));
    protected JButton seachButton_  = new JButton(new ImageIcon("Pictures/seachIcon.PNG"));
@@ -39,7 +41,8 @@ public class ViewPanel extends JPanel {
         JTextField[] fields = {pathField_,seachField_};
         for(JTextField tf : fields){
            tf.setFont(new Font("Arial",Font.BOLD,11));
-            tf.setBackground(new Color(237,237,237));            
+            tf.setBackground(new Color(237,237,237)); 
+            tf.addFocusListener(this);
         }
        
         icon_       = new JLabel(new ImageIcon("Pictures/icoFol.PNG"));
@@ -69,10 +72,27 @@ public class ViewPanel extends JPanel {
             b.setBackground(new Color(237 , 237 , 237));
             b.setBorderPainted(false);
             b.setFont(new Font("Arial",Font.BOLD,11));            
-            b.setOpaque(false);
+            b.setOpaque(false); 
         }
- 
-        
+         
+           
     }
+
+    @Override
+    public void focusGained(FocusEvent fe) {
+        
+        if(fe.getSource() == seachField_){
+            seachButton_.setEnabled(true);
+        }
+            
+     }
+
+    @Override
+    public void focusLost(FocusEvent fe) {
+         if(fe.getSource() == seachField_){
+            seachButton_.setEnabled(false);
+        }
+          
+     }
     
 }
