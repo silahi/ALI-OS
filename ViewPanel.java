@@ -1,11 +1,13 @@
  
 package explorer;
 
-import java.awt.Color; 
-import java.awt.Dimension;
+import java.awt.CardLayout;
+import java.awt.Color;  
 import java.awt.FlowLayout;
 import static java.awt.FlowLayout.LEFT;
 import java.awt.Font; 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import javax.swing.ImageIcon;
@@ -18,7 +20,7 @@ import javax.swing.JTextField;
  *
  * @author alhoussene
  */
-public class ViewPanel extends JPanel implements FocusListener {
+public class ViewPanel extends JPanel implements FocusListener,ActionListener {
    protected JButton left_         = new JButton(new ImageIcon("Pictures/left.PNG"));
    protected JButton right_        = new JButton(new ImageIcon("Pictures/right.PNG"));
    protected JButton seachButton_  = new JButton(new ImageIcon("Pictures/seachIcon.PNG"));
@@ -33,11 +35,10 @@ public class ViewPanel extends JPanel implements FocusListener {
     public ViewPanel() {
         FlowLayout flow = new FlowLayout();
         flow.setAlignment(LEFT);
-        setLayout(flow);
-        pathField_  = new JTextField();
-        pathField_.setPreferredSize(new Dimension(700 ,25));        
-        seachField_ = new JTextField();
-        seachField_.setPreferredSize(new Dimension(250,25));
+        setBackground(new Color(237,237,237)); 
+        setLayout(flow);        
+        pathField_  = new JTextField(75);         
+        seachField_ = new JTextField(20); 
         JTextField[] fields = {pathField_,seachField_};
         for(JTextField tf : fields){
            tf.setFont(new Font("Arial",Font.BOLD,11));
@@ -49,15 +50,18 @@ public class ViewPanel extends JPanel implements FocusListener {
         
         //ajout des composants de p1
         JPanel p1 = new JPanel();
+        p1.setOpaque(false);
         p1.add(left_); p1.add(right_);
         
        //ajout des composants de pathPanel 
         pathPanel_ = new PathPanel(); 
         pathPanel_.add(icon_);
         pathPanel_.add(pathField_);
-        
+        pathPanel_.setOpaque(false);
         //ajout des composants de p3
+        
         JPanel p3 = new JPanel();
+        p3.setOpaque(false);
         p3.add(seachField_);
         p3.add(seachButton_); 
         
@@ -77,6 +81,15 @@ public class ViewPanel extends JPanel implements FocusListener {
          
            
     }
+    
+    public void evenement(CardLayout carte ,JPanel panel ){
+        left_.addActionListener((ActionEvent)->{
+            carte.previous(panel);
+        });
+         right_.addActionListener((ActionEvent)->{
+            carte.next(panel);
+        });
+    }
 
     @Override
     public void focusGained(FocusEvent fe) {
@@ -93,6 +106,11 @@ public class ViewPanel extends JPanel implements FocusListener {
             seachButton_.setEnabled(false);
         }
           
+     }
+
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+        
      }
     
 }

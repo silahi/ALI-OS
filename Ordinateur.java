@@ -3,6 +3,7 @@ package explorer;
 
 import java.awt.Color;
 import java.awt.Font; 
+import javax.swing.ImageIcon;
 import javax.swing.JTree; 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
@@ -28,7 +29,11 @@ public class Ordinateur extends JTree {
             this.setBackground(color);
             this.setBackgroundSelectionColor(color);
             this.setBackgroundNonSelectionColor(color); 
-            this.setLeafIcon(closedIcon);
+            this.setLeafIcon(new ImageIcon("Pictures/exp1.PNG"));
+            this.setClosedIcon(new ImageIcon("Pictures/exp1.PNG"));
+            this.setOpenIcon(new ImageIcon("Pictures/exp1.PNG"));
+            this.setTextSelectionColor(Color.blue);
+            
         }
     }
 }

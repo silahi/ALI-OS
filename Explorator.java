@@ -2,23 +2,21 @@
 package explorer;
 
 
-import alios.Application;
-import alios.MBTEvent;
+import alios.Application; 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
+import java.awt.event.MouseEvent; 
  
 import javax.swing.GroupLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
+import javax.swing.ImageIcon; 
 import javax.swing.JFrame;
 import javax.swing.JPanel;  
 import javax.swing.UIManager;
+import javax.swing.event.TreeSelectionEvent;
 import javax.swing.tree.DefaultMutableTreeNode;
  
 
@@ -85,7 +83,7 @@ public class Explorator extends JFrame implements FocusListener  {
     private final String REP_2 = "alios/Disque local D";
     
    // com.sun.java.swing.
-    private final String WINDOW = "com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel";
+    private final String WINDOW = "com.sun.java.swing.plaf.windows.WindowsLookAndFeel";
     
     
     public Explorator(){
@@ -95,7 +93,7 @@ public class Explorator extends JFrame implements FocusListener  {
         setExtendedState(MAXIMIZED_BOTH); 
         try{
             UIManager.setLookAndFeel(WINDOW);
-        }catch(Exception ex){} 
+        }catch(Exception ex){ System.out.println(ex.getMessage());} 
         
         //creation et ajout du pannrau intermediaire
          interPanel_ = new JPanel();
@@ -106,6 +104,7 @@ public class Explorator extends JFrame implements FocusListener  {
          add(expConfPan_,"North");
          
          treeContainerPanel_ = new JPanel();
+         treeContainerPanel_.setBackground(new Color(237,237,237));
          group_ = new GroupLayout(treeContainerPanel_);
          group_.setAutoCreateContainerGaps(true);
          group_.setAutoCreateGaps(true);
@@ -125,19 +124,50 @@ public class Explorator extends JFrame implements FocusListener  {
          accesRapide_.addTreeSelectionListener((TreeSelectionEvent)->{
             if(accesRapide_.getSelectionPath() != null){
             String chemin = accesRapide_.getSelectionPath().toString(); 
-            viewPanel_.pathField_.setText(chemin);            
+            viewPanel_.pathField_.setText(chemin); 
+              JPanel p = new JPanel();
+              p.setOpaque(false);                             
             }
-         });
-         
-         nodeOrdi_ = new Racine("Ordinateur");
+         });         
+         nodeOrdi_ = new Racine("alios");
          ordinateur_ = new Ordinateur(nodeOrdi_); 
          
-         ordinateur_.addTreeSelectionListener((TreeSelectionEvent)->{
+         ordinateur_.addTreeSelectionListener((TreeSelectionEvent ts)->{
+             String path = "";
+             
            if(ordinateur_.getSelectionPath() != null){
             String chemin = ordinateur_.getSelectionPath().toString(); 
-            viewPanel_.pathField_.setText(chemin);            
+           // viewPanel_.pathField_.setText(chemin); 
+              Object[] tab = ordinateur_.getSelectionPath().getPath(); 
+              for(Object obj : tab){
+                  String str = obj.toString();
+                  path = path+""+str+"/";
+                   viewPanel_.pathField_.setText(path);
+                   java.io.File f = new java.io.File(path);
+                   Space pf = new Space();
+                   rootPanel_.add(pf,""+f.getName());
+                   pile_.show(rootPanel_, f.getName());
+                   java.io.File[] fileTab = f.listFiles();
+                   if(fileTab.length>0){
+                   for(java.io.File f1 : fileTab ){                       
+                       if(f1.isDirectory()){
+                           os.Folder folder = new os.Folder(f1.getName());
+                            pf.ajout(folder);
+                       }
+                          
+                       else{
+                           os.File fic = new os.File(f1.getName());
+                            pf.ajout(fic);
+                     }
+                          
+                }
+              }    
+                   
+              }
             }
+             
          });
+         
          
          verGroup.addComponent(accesRapide_).addComponent(ordinateur_);
          horGroup.addComponent(accesRapide_).addComponent(ordinateur_);
@@ -147,7 +177,7 @@ public class Explorator extends JFrame implements FocusListener  {
          
          pile_ = new CardLayout();
          rootPanel_.setLayout(pile_);
-         dividerPanel_ = new DividerPanel(new Defileur(treeContainerPanel_), new Defileur(rootPanel_)); 
+         dividerPanel_ = new DividerPanel(new Defileur(treeContainerPanel_), rootPanel_); 
          
          rootPanel_.addMouseListener(new MouseAdapter(){            
            @Override
@@ -160,15 +190,9 @@ public class Explorator extends JFrame implements FocusListener  {
          viewPanel_ = new ViewPanel();
          interPanel_.add(viewPanel_,"North");
          
-         //Ajout de quelques enfants par défaut
-         nodeOrdi_.add(new DefaultMutableTreeNode("Bureau",true));
-         nodeOrdi_.add(new DefaultMutableTreeNode("Documents",true));
-         nodeOrdi_.add(new DefaultMutableTreeNode("Images",true));
-         nodeOrdi_.add(new DefaultMutableTreeNode("Musiques",true));
-         nodeOrdi_.add(new DefaultMutableTreeNode("Téléchargements",true));
-         nodeOrdi_.add(new DefaultMutableTreeNode("Videos",true));
          
-         //Contenu du disque C 
+         
+         //Affichage des repertoire du disque C
          java.io.File C = new java.io.File(REP_1);
          DefaultMutableTreeNode diskC = new DefaultMutableTreeNode("Disque local C");
            nodeOrdi_.add(diskC);
@@ -176,11 +200,11 @@ public class Explorator extends JFrame implements FocusListener  {
                 diskC.add(new DefaultMutableTreeNode(f.getName()));
             }
            
-         //Contenu du disque D 
+         //Affichage des repertoire du disque D
          java.io.File D = new java.io.File(REP_2);
          DefaultMutableTreeNode diskD = new DefaultMutableTreeNode("Disque local D",true);
           nodeOrdi_.add(diskD);
-          for(java.io.File f : D.listFiles()){   
+          for(java.io.File f : D.listFiles()){             
               DefaultMutableTreeNode n1 = new DefaultMutableTreeNode(f.getName(),true); 
                 diskD.add(n1); 
                 if(f.isDirectory()){
@@ -201,11 +225,18 @@ public class Explorator extends JFrame implements FocusListener  {
          nodeAccRap_.add(new DefaultMutableTreeNode("Videos",true));
          nodeAccRap_.add(new DefaultMutableTreeNode("Musiques",true));
          nodeAccRap_.add(new DefaultMutableTreeNode("Images",true)); 
-         
+         viewPanel_.evenement(pile_, rootPanel_);
  
-         
+         expConfPan_.createFolder.addActionListener((ActionEvent) ->{
+             addFolder(viewPanel_.pathField_.getText());
+         });
        
     }   
+    
+     public void addFolder(String destination){
+        java.io.File rep = new java.io.File(destination);
+        rep.mkdir();
+    }
 
     @Override
     public void focusGained(FocusEvent fe) { 
