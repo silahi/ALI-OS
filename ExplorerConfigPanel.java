@@ -2,8 +2,10 @@
 package explorer;
 
 import java.awt.BorderLayout;  
+import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane; 
 
@@ -38,18 +40,23 @@ public class ExplorerConfigPanel extends JPanel  {
         cut          = new Bouton("Couper" , new ImageIcon("Pictures/iconCut.PNG"));
         rename       = new Bouton("Renommer",new ImageIcon("Pictures/rename.PNG")); 
         
-       // JButton[] boutons = {createFolder,createFile,copy,paste,delete,cut,rename};
-       // for(JButton b : boutons) b.addActionListener(this);
+        JButton[] boutons = {createFolder,createFile,copy,paste,delete,cut,rename};
+         for(JButton b : boutons){
+             b.setBorderPainted(false);
+             b.setFocusPainted(false);
+         }
         
-        
+       rootPanel.setBackground(new Color(223,223,223));
         JPanel p1 = new JPanel();
+        p1.setOpaque(false);
         p1.setOpaque(false); 
         JPanel p2 = new JPanel();
+         
         p2.setOpaque(false);
         p2.add(createFolder); 
         rootPanel.add(p2); 
-        
-         p1.add(copy); p1.add(paste); p1.add(cut); p1.add(rename); p1.add(delete);
+       
+         p1.add(copy); p1.add(paste); p1.add(cut); p1.add(rename); p1.add(delete); 
         rootPanel.add(p1);
     } 
     

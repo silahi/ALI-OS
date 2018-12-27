@@ -4,6 +4,7 @@ package explorer;
 import javax.swing.GroupLayout; 
 import javax.swing.JComponent;
 import javax.swing.JPanel;
+import os.RootPopup;
 
 /**
  *
@@ -22,6 +23,7 @@ public class Space extends JPanel {
         group_.setAutoCreateGaps(true);
         group_.setHorizontalGroup(seqGp);
         group_.setVerticalGroup(parGp);
+        setComponentPopupMenu(new RootPopup(this));
     }
     public void ajout(JComponent cmp){
         seqGp.addComponent(cmp);

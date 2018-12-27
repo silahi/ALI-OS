@@ -15,6 +15,7 @@ public class Bouton extends JButton {
         super(titre,icon); 
         setOpaque(false);
         setBorderPainted(false);
+        setFocusPainted(false);
         setVerticalAlignment(BOTTOM);
         setHorizontalTextPosition(CENTER);
         setVerticalTextPosition(BOTTOM);  

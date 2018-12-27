@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
+import javax.swing.JButton; 
 import javax.swing.JLabel; 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -46,7 +46,7 @@ public class ViewPanel extends JPanel implements FocusListener,ActionListener {
             tf.addFocusListener(this);
         }
        
-        icon_       = new JLabel(new ImageIcon("Pictures/icoFol.PNG"));
+        icon_   = new JLabel(new ImageIcon("Pictures/icoFol.PNG"));
         
         //ajout des composants de p1
         JPanel p1 = new JPanel();
@@ -56,6 +56,8 @@ public class ViewPanel extends JPanel implements FocusListener,ActionListener {
        //ajout des composants de pathPanel 
         pathPanel_ = new PathPanel(); 
         pathPanel_.add(icon_);
+        
+          
         pathPanel_.add(pathField_);
         pathPanel_.setOpaque(false);
         //ajout des composants de p3

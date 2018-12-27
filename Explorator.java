@@ -5,9 +5,7 @@ package explorer;
 import alios.Application; 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.Color;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
+import java.awt.Color; 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent; 
  
@@ -15,9 +13,11 @@ import javax.swing.GroupLayout;
 import javax.swing.ImageIcon; 
 import javax.swing.JFrame;
 import javax.swing.JPanel;  
+import javax.swing.JScrollPane;
 import javax.swing.UIManager;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.tree.DefaultMutableTreeNode;
+import os.Zone;
  
 
 /**Fichier : Explorator.java
@@ -26,7 +26,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * Mescriptions : classe principale contenant l'ensemble des fichiers du systeme
  * @author alhoussene
  */
-public class Explorator extends JFrame implements FocusListener  {
+public class Explorator extends JFrame   {
     
     /** Ce panneau (panel gauche de l'explorateur de fichier) va contienir :
         * L'arbre d'acces rapide
@@ -85,7 +85,8 @@ public class Explorator extends JFrame implements FocusListener  {
    // com.sun.java.swing.
     private final String WINDOW = "com.sun.java.swing.plaf.windows.WindowsLookAndFeel";
     
-    
+   //page d'accueil de l'explorateur de fichier
+    protected ExplorerHome expHom ;
     public Explorator(){
         setSize(1200 , 700);
         setLocation(20,15);
@@ -93,16 +94,18 @@ public class Explorator extends JFrame implements FocusListener  {
         setExtendedState(MAXIMIZED_BOTH); 
         try{
             UIManager.setLookAndFeel(WINDOW);
-        }catch(Exception ex){ System.out.println(ex.getMessage());} 
+       }catch(Exception ex){ System.out.println(ex.getMessage());} 
         
         //creation et ajout du pannrau intermediaire
          interPanel_ = new JPanel();
          interPanel_.setLayout(new BorderLayout());
          add(interPanel_ , "Center");  
          
-         expConfPan_ = new ExplorerConfigPanel();
-         add(expConfPan_,"North");
          
+         expConfPan_ = new ExplorerConfigPanel();
+         add(expConfPan_,"North"); 
+         
+         add(new JPanel(),"East");
          treeContainerPanel_ = new JPanel();
          treeContainerPanel_.setBackground(new Color(237,237,237));
          group_ = new GroupLayout(treeContainerPanel_);
@@ -135,6 +138,7 @@ public class Explorator extends JFrame implements FocusListener  {
          ordinateur_.addTreeSelectionListener((TreeSelectionEvent ts)->{
              String path = "";
              
+             
            if(ordinateur_.getSelectionPath() != null){
             String chemin = ordinateur_.getSelectionPath().toString(); 
            // viewPanel_.pathField_.setText(chemin); 
@@ -142,7 +146,7 @@ public class Explorator extends JFrame implements FocusListener  {
               for(Object obj : tab){
                   String str = obj.toString();
                   path = path+""+str+"/";
-                   viewPanel_.pathField_.setText(path);
+                    viewPanel_.pathField_.setText(path);
                    java.io.File f = new java.io.File(path);
                    Space pf = new Space();
                    rootPanel_.add(pf,""+f.getName());
@@ -152,16 +156,26 @@ public class Explorator extends JFrame implements FocusListener  {
                    for(java.io.File f1 : fileTab ){                       
                        if(f1.isDirectory()){
                            os.Folder folder = new os.Folder(f1.getName());
-                            pf.ajout(folder);
+                           pf.ajout(folder);
+                           folder.delete.addActionListener((ActionEvent)->{
+                               pf.remove(folder);
+                               pf.repaint();
+                           });
+                            
+                           folder.rename.addActionListener((ActionEvent)->{
+                              Zone zone = new Zone(folder); 
+                              zone.setLocation(folder.getLocationOnScreen().x , folder.getLocationOnScreen().y+folder.getHeight()-20);
+                              zone.setVisible(true);
+                           });
                        }
                           
                        else{
                            os.File fic = new os.File(f1.getName());
                             pf.ajout(fic);
-                     }
+                      }
                           
-                }
-              }    
+                   }
+                 }    
                    
               }
             }
@@ -177,7 +191,9 @@ public class Explorator extends JFrame implements FocusListener  {
          
          pile_ = new CardLayout();
          rootPanel_.setLayout(pile_);
-         dividerPanel_ = new DividerPanel(new Defileur(treeContainerPanel_), rootPanel_); 
+         expHom = new ExplorerHome();
+         rootPanel_.add(expHom , "homme");
+         dividerPanel_ = new DividerPanel(new Defileur(treeContainerPanel_),rootPanel_); 
          
          rootPanel_.addMouseListener(new MouseAdapter(){            
            @Override
@@ -238,13 +254,6 @@ public class Explorator extends JFrame implements FocusListener  {
         rep.mkdir();
     }
 
-    @Override
-    public void focusGained(FocusEvent fe) { 
-       
-     }
-
-    @Override
-    public void focusLost(FocusEvent fe) {  
-    }
+ 
       
 }
