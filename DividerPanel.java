@@ -3,8 +3,8 @@ package explorer;
 
  
  
-import java.awt.Color;
-import javax.swing.JComponent; 
+import java.awt.Color; 
+import javax.swing.BorderFactory;
 import javax.swing.JSplitPane;
 
 /**
@@ -12,13 +12,14 @@ import javax.swing.JSplitPane;
  * @author alhoussene
  */
 public class DividerPanel extends JSplitPane {
-    public DividerPanel(JComponent leftPanel , JComponent component){
-        super(JSplitPane.HORIZONTAL_SPLIT ,leftPanel,component);
+    public DividerPanel(){ 
         setContinuousLayout(true); 
         setBackground(new Color(237,237,237));
         setOpaque(false); 
         setDividerSize(1);
-        leftPanel.setBackground(new Color(237,237,237)); 
-          
+        setDividerLocation(280); 
+        this.setAutoscrolls(true); 
+        
+        this.setBorder(BorderFactory.createLineBorder(new Color(237,237,237))); 
     }
 }

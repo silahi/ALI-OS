@@ -32,7 +32,7 @@ public class ExplorerConfigPanel extends JPanel  {
         rootPanel = new JPanel();
         add(new JScrollPane(rootPanel));  
         
-        createFolder = new Bouton("<html>Nouveau<br>&nbsp;&nbsp;Dossier</html>" ,new ImageIcon("Pictures/icoFol.PNG"));
+        createFolder = new Bouton("<html>Nouveau<br>&nbsp;&nbsp;Dossier</html>" ,new ImageIcon("addFolder.png"));
         createFile   = new Bouton("<html>Nouveau<br>&nbsp;&nbsp;&nbsp;Fichier</html>" ,new ImageIcon("Pictures/iconFile.PNG"));
         copy         = new Bouton("Copier" ,new ImageIcon("Pictures/iconCopy.PNG"));
         paste        = new Bouton("Coller" , new ImageIcon("Pictures/iconPaste.PNG"));
