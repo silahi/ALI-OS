@@ -87,7 +87,7 @@ public class Explorator extends JFrame  implements TreeSelectionListener  {
     
     //Noeud racine de l'arbre acces rapide
     protected DefaultMutableTreeNode racineAcces_;
-            
+           
     public Explorator(){
         setSize(1200 , 700);
         setLocation(20,15);
@@ -97,6 +97,7 @@ public class Explorator extends JFrame  implements TreeSelectionListener  {
         expConfPan_ = new ExplorerConfigPanel();
         viewPanel_ = new ViewPanel();
         dividerPanel_ = new DividerPanel();
+        
         try{
             UIManager.setLookAndFeel(WINDOW);
        }catch(Exception ex){ System.out.println(ex.getMessage());} 
