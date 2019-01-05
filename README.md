@@ -1,5 +1,4 @@
 "#Operating System"
-Ce projet consiste à inviter aux jeunes programmeurs en java de mettre en pratique leur apprentissage et partager 
-et partager quelques connaissances .
+ ce projet consiste créer un petit os en java juste pour permettre aux étudiants d'approfondir leus apprentissage de ce langage et mettre en pratique ce que nous apprenons de ce langage.
 
 
