@@ -32,7 +32,7 @@ public class ExplorerConfigPanel extends JPanel  {
         rootPanel = new JPanel();
         add(new JScrollPane(rootPanel));  
         
-        createFolder = new Bouton("<html>Nouveau<br>&nbsp;&nbsp;Dossier</html>" ,new ImageIcon("addFolder.png"));
+        createFolder = new Bouton("<html>Nouveau<br>&nbsp;&nbsp;Dossier</html>" ,new ImageIcon("Pictures/icoFolder.PNG"));
         createFile   = new Bouton("<html>Nouveau<br>&nbsp;&nbsp;&nbsp;Fichier</html>" ,new ImageIcon("Pictures/iconFile.PNG"));
         copy         = new Bouton("Copier" ,new ImageIcon("Pictures/iconCopy.PNG"));
         paste        = new Bouton("Coller" , new ImageIcon("Pictures/iconPaste.PNG"));
@@ -44,6 +44,7 @@ public class ExplorerConfigPanel extends JPanel  {
          for(JButton b : boutons){
              b.setBorderPainted(false);
              b.setFocusPainted(false);
+             b.setUI(new javax.swing.plaf.metal.MetalButtonUI());
          }
         
        rootPanel.setBackground(new Color(223,223,223));

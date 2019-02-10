@@ -17,8 +17,8 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 public class ComputerTreeRender extends DefaultTreeCellRenderer {
 
     public ComputerTreeRender() {
-        setClosedIcon(new ImageIcon("folderClosed.png"));
-        setOpenIcon(new ImageIcon("folderOpened.png"));
+        setClosedIcon(new ImageIcon("Pictures/icoFolder.PNG"));
+        setOpenIcon(new ImageIcon("Pictures/icoFolder.PNG"));
         setBorder(BorderFactory.createEmptyBorder(1,0,1, 0));
         setBackgroundNonSelectionColor(new Color(237,237,237));        
         setFont(new Font("Verdana",Font.BOLD,11));

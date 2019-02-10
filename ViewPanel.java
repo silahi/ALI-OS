@@ -3,6 +3,7 @@ package explorer;
 
 import java.awt.CardLayout;
 import java.awt.Color;  
+import java.awt.ComponentOrientation;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import static java.awt.FlowLayout.LEFT;
@@ -16,7 +17,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton; 
 import javax.swing.JComboBox;
 import javax.swing.JLabel; 
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
@@ -60,11 +60,12 @@ public class ViewPanel extends JPanel implements FocusListener,ActionListener {
         JPanel p1 = new JPanel();
         p1.setOpaque(false);
         p1.add(left_); p1.add(right_);
-        
+       
         try{
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
        }catch(Exception ex){ System.out.println(ex.getMessage());} 
         
+      
        //ajout des composants de pathPanel 
         pathPanel_ = new PathPanel(); 
         
@@ -75,27 +76,26 @@ public class ViewPanel extends JPanel implements FocusListener,ActionListener {
         pathPanel_.setLayout(f1);
         
         pathPanel_.setPreferredSize(new Dimension(1000 , 20));
-        pathPanel_.setBorder(BorderFactory.createLineBorder(Color.BLUE)); 
+        pathPanel_.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY)); 
         Object[] objets = {"Bureau" , "Ordinateur" , "Panneau de configuration" , "Utilisateur"};
         combo = new JComboBox(objets);
         combo.setSelectedIndex(1);
+        combo.setBorder(BorderFactory.createEmptyBorder());
         
         combo.setEditable(false);
-        combo.setPreferredSize(new Dimension(combo.getPreferredSize().width , 18));
-        
-       
-        
-        //pathPanel_.add(combo);
+        combo.setPreferredSize(new Dimension(combo.getPreferredSize().width -10 , 18)); 
+        combo.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+        combo.setDoubleBuffered(true);
         
         
          pathPanel_.add(imageLab);
-        pathPanel_.add(combo);
+         pathPanel_.add(combo);
          
         //ajout des composants de p3
         
         JPanel p3 = new JPanel();
         p3.setLayout(f1);
-        p3.setBorder(BorderFactory.createLineBorder(Color.BLUE));
+        p3.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
         p3.setPreferredSize(new Dimension(200 , 20));
         seachField_.setPreferredSize(new Dimension(180 , 18));
         seachField_.setBorder(BorderFactory.createLineBorder(new Color(237 , 237 , 237)));
@@ -116,6 +116,7 @@ public class ViewPanel extends JPanel implements FocusListener,ActionListener {
             b.setBorderPainted(false);
             b.setFont(new Font("Arial",Font.BOLD,11));            
             b.setOpaque(false); 
+            b.setUI(new javax.swing.plaf.metal.MetalButtonUI());
         }
          
            

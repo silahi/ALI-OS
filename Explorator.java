@@ -18,8 +18,7 @@ import javax.swing.JTree;
 import javax.swing.UIManager; 
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
-import javax.swing.tree.DefaultMutableTreeNode;
- 
+import javax.swing.tree.DefaultMutableTreeNode; 
 
 /**Fichier : Explorator.java
  *Date de création : 16/11/18
@@ -75,7 +74,7 @@ public class Explorator extends JFrame  implements TreeSelectionListener  {
     
    // com.sun.java.swing.
     private final String WINDOW = "com.sun.java.swing.plaf.windows.WindowsLookAndFeel";
-    
+   
    //page d'accueil de l'explorateur de fichier
     protected ExplorerHome expHom ;
     
@@ -96,14 +95,22 @@ public class Explorator extends JFrame  implements TreeSelectionListener  {
         expHom = new ExplorerHome();
         expConfPan_ = new ExplorerConfigPanel();
         viewPanel_ = new ViewPanel();
-        dividerPanel_ = new DividerPanel();
+        dividerPanel_ = new DividerPanel(); 
         
+           try{
+            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+       }catch(Exception ex){ System.out.println(ex.getMessage());}
+        
+           computerTreeBuilding();
+          speedAccesTreeBuilding(); 
+          
+          /*
+           
         try{
             UIManager.setLookAndFeel(WINDOW);
        }catch(Exception ex){ System.out.println(ex.getMessage());} 
         
-        computerTreeBuilding();
-        speedAccesTreeBuilding(); 
+        */
         
         //creation et ajout du pannrau intermediaire
          interPanel_ = new JPanel();
@@ -175,6 +182,7 @@ public class Explorator extends JFrame  implements TreeSelectionListener  {
     private void  computerTreeBuilding(){
         racineOrdi_ = new DefaultMutableTreeNode("Ordinateur" , true);
         desktop     = new DefaultMutableTreeNode("Bureau" , true);
+        
         download    = new DefaultMutableTreeNode("Téléchargements" , true);
         document    = new DefaultMutableTreeNode("Documents" , true);
         music       = new DefaultMutableTreeNode("Musiques" , true);
@@ -193,12 +201,14 @@ public class Explorator extends JFrame  implements TreeSelectionListener  {
         racineOrdi_.add(movie);
         racineOrdi_.add(music);
         racineOrdi_.add(aliosC_);
-        racineOrdi_.add(aliosD_);        
-        ordinateur_ = new JTree(racineOrdi_ , true);
+        racineOrdi_.add(aliosD_); 
+        
+        ordinateur_ = new JTree(racineOrdi_ , true); 
+        
         ordinateur_.addTreeSelectionListener(this);        
         ordinateur_.setPreferredSize(new Dimension(300, 1500));
-        ordinateur_.setShowsRootHandles(true);
-        ordinateur_.setCellRenderer(new ComputerTreeRender()); 
+       ordinateur_.setShowsRootHandles(true);
+       ordinateur_.setCellRenderer(new ComputerTreeRender()); 
     }
     
     private void speedAccesTreeBuilding(){
@@ -270,7 +280,7 @@ public class Explorator extends JFrame  implements TreeSelectionListener  {
     @Override
     public void valueChanged(TreeSelectionEvent tse) {
         if(tse.getSource() == ordinateur_){
-
+           
         }
      }
  }
